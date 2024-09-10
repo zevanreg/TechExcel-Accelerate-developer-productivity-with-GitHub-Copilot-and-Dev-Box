@@ -1,6 +1,10 @@
 name: first-workflow
 
-on: [workflow_dispatch]
+on:
+  workflow_dispatch:
+  issues:
+    types:
+      created
 
 jobs:
   job1:
