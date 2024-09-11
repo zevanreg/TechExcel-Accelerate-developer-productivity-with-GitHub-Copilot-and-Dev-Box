@@ -3,6 +3,9 @@ name: Deploy Infra
 on:
   workflow_dispatch:
 
+env:
+  targetEnv: dev
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -26,6 +29,7 @@ jobs:
         uses: Azure/arm-deploy@v1
         with:
           scope: 'resourcegroup'
-          resource-group: ${{ secrets.AZURE_RG }}
+          resourceGroupName: ${{ secrets.AZURE_RG }}
           template: './src/InfrastructureAsCode/main.bicep'
-          deployment-mode: 'Incremental' 
+          deployment-mode: 'Incremental'
+          parameters: environment=${{ env.targetEnv }}
