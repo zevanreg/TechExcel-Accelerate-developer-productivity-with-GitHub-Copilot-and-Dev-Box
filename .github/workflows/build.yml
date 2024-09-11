@@ -14,7 +14,7 @@ on:
 env:
   registryName: 4qherpa7hb2fimpnpreg.azurecr.io
   repositoryName: techexcel/dotnetcoreapp
-  dockerFolderPath: /src/Application/src/RazorPagesTestSample
+  dockerFolderPath: ./src/Application/src/RazorPagesTestSample
   tag: ${{github.run_number}}
 
 jobs:
