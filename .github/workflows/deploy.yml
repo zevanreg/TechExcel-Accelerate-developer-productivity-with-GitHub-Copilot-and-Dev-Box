@@ -4,13 +4,13 @@ on:
   workflow_dispatch:
     inputs:
       targetEnv:
+        type: choice
         description: 'Target environment'
         required: true
         options: 
         - dev
         - test
         - prod
-        default: 'dev'
 
 jobs:
   deploy:
