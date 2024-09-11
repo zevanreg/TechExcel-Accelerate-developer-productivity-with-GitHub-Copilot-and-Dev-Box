@@ -1,4 +1,5 @@
 {
     "registry_key": "8yYKDsFTjatiQI9nVcsoQ1P3rdnh+P5Mlz9gVBgVgx+ACRArmBQ3",
-    "registry_type": "AzureContainerRegistry"
+    "registry_type": "AzureContainerRegistry",
+    "somekey": "somevalue"
 }
