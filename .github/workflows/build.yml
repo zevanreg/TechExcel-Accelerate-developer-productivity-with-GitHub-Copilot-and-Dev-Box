@@ -11,6 +11,12 @@ on:
     branches: [ "main" ]
     paths: src/Application/**
 
+env:
+  registryName: 4qherpa7hb2fimpnpreg.azurecr.io
+  repositoryName: techexcel/dotnetcoreapp
+  dockerFolderPath: /src/Application/src/RazorPagesTestSample
+  tag: ${{github.run_number}}
+
 jobs:
   build:
 
@@ -28,3 +34,22 @@ jobs:
       run: dotnet build --no-restore src\Application\src\RazorPagesTestSample\RazorPagesTestSample.csproj
     - name: Test
       run: dotnet test --no-build --verbosity normal src\Application\tests\RazorPagesTestSample.Tests\RazorPagesTestSample.Tests.csproj
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Login to Azure Container Registry
+      run: az acr login --name ${{env.registryName}}
+    - name: Docker login
+      uses: docker/login-action@v1.9.0
+      with:
+        login-server: ${{secrets.ACR_LOGIN_SERVER}}
+        username: ${{secrets.ACR_USERNAME}}
+        password: ${{secrets.ACR_PASSWORD}}
+    - name: Docker Build
+      run: docker build -t $registryName/$repositoryName:$tag --build-arg build_version=$tag $dockerFolderPath
+    - name: Docker Push
+      run: docker push $registryName/$repositoryName:$tag
