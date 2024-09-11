@@ -2,6 +2,11 @@ name: Deploy Infra
 
 on:
   workflow_dispatch:
+    inputs:
+      targetEnv:
+        description: 'Target environment'
+        required: true
+        default: 'dev'
 
 env:
   targetEnv: dev
