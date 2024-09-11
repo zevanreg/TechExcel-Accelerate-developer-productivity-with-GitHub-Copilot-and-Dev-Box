@@ -8,7 +8,7 @@ namespace RazorPagesTestSample.Data
     /// Represents a message.
     /// </summary>
     /// public class Message
-    {/ {
+    {
         /// <summary>
         /// Gets or sets the ID of the message.
         /// </summary>
