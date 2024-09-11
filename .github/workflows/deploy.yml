@@ -6,10 +6,11 @@ on:
       targetEnv:
         description: 'Target environment'
         required: true
+        options: 
+        - dev
+        - test
+        - prod
         default: 'dev'
-
-env:
-  targetEnv: dev
 
 jobs:
   deploy:
@@ -37,4 +38,4 @@ jobs:
           resourceGroupName: ${{ secrets.AZURE_RG }}
           template: './src/InfrastructureAsCode/main.bicep'
           deployment-mode: 'Incremental'
-          parameters: environment=${{ env.targetEnv }}
+          parameters: environment=${{ github.event.inputs.targetEnv }}
