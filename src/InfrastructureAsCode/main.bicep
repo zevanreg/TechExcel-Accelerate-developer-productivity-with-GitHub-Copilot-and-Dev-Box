@@ -13,6 +13,26 @@ var registryName = '${uniqueString(resourceGroup().id)}mpnpreg'
 var registrySku = 'Standard'
 var imageName = 'techexcel/dotnetcoreapp'
 var startupCommand = ''
+var redisCacheName = '${uniqueString(resourceGroup().id)}-mpnp-redis'
+var redisCacheSku = 'Basic'
+
+resource redisCache 'Microsoft.Cache/Redis@2023-08-01' = {
+  name: redisCacheName
+  location: location
+  properties: {
+    sku: {
+      name: redisCacheSku
+      family: 'C'
+      capacity: 0
+    }
+    enableNonSslPort: false
+    minimumTlsVersion: '1.2'
+    redisConfiguration: {
+      'maxmemory-policy': 'volatile-lru'
+    }
+  }
+}
+
 
 resource appServicePlan 'Microsoft.Web/serverfarms@2021-02-01' = {
   name: appServicePlanName
